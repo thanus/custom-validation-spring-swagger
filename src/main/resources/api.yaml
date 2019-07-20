@@ -1,0 +1,68 @@
+swagger: '2.0'
+info:
+  description: User API
+  version: 1.0.0
+  title: User API
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      description: Create user
+      operationId: createUser
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: Created user object
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+  /user/{username}:
+    get:
+      tags:
+        - user
+      description: Get user
+      operationId: getUser
+      produces:
+        - application/json
+      parameters:
+        - name: username
+          in: path
+          description: Username
+          required: true
+          type: string
+          x-validations-username: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+definitions:
+  User:
+    type: object
+    required:
+      - username
+      - phone
+    properties:
+      username:
+        type: string
+        x-validations-username: true
+      firstName:
+        type: string
+        minLength: 1
+      lastName:
+        type: string
+        minLength: 1
+      phone:
+        type: string
+        x-validations-phonenumber: true

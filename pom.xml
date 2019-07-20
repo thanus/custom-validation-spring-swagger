@@ -14,6 +14,8 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <swagger-core.version>1.5.22</swagger-core.version>
+        <swagger-codegen-maven-plugin.version>2.3.1</swagger-codegen-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
     </properties>
 
@@ -21,6 +23,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-core</artifactId>
+            <version>${swagger-core.version}</version>
         </dependency>
 
         <dependency>
@@ -35,6 +42,31 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger-codegen-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>
+                            <templateDirectory>${project.basedir}/src/main/resources/swagger/templates</templateDirectory>
+                            <language>spring</language>
+                            <library>spring-boot</library>
+                            <apiPackage>nl.thanus.customvalidation.api</apiPackage>
+                            <modelPackage>nl.thanus.customvalidation.model</modelPackage>
+                            <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <dateLibrary>java8</dateLibrary>
+                                <interfaceOnly>true</interfaceOnly>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
