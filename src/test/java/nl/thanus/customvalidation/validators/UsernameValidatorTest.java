@@ -1,7 +1,7 @@
 package nl.thanus.customvalidation.validators;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -16,8 +16,8 @@ public class UsernameValidatorTest {
     private static final String USERNAME_VIOLATION_MESSAGE = "Invalid username";
     private static Validator validator;
 
-    @BeforeClass
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
     }
